@@ -1,8 +1,8 @@
 import style from './PostRaiting.module.css';
 import PropTypes from 'prop-types';
-import {PostRaitingUps} from '../PostRaitingUps/PostRaitingUps';
-import {BtnArrowUp} from '../BtnArrowUp/BtnArrowUp';
-import {BtnArrowDown} from '../BtnArrowDown/BtnArrowDown';
+import {PostRaitingUps} from './PostRaitingUps/PostRaitingUps';
+import {BtnArrowUp} from './BtnArrowUp/BtnArrowUp';
+import {BtnArrowDown} from './BtnArrowDown/BtnArrowDown';
 
 export const PostRaiting = ({ups}) => (
   <div className={style.rating}>
