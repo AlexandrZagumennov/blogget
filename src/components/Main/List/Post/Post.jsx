@@ -9,7 +9,7 @@ import {BtnDelete} from './BtnDelete/BtnDelete';
 export const Post = ({postData}) => {
   const {title, author, ups, date} = postData;
   return (
-    <li className={style.post}>
+    <li className={style.post} key={postData.id}>
       <PostImg postAlt={title}/>
       <PostHeading postTitle={title} postAuthor={author}/>
       <PostRaiting ups={ups}/>

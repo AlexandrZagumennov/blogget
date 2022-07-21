@@ -1,8 +1,9 @@
 import style from './PostRaitingUps.module.css';
 import PropTypes from 'prop-types';
+import {Text} from '../../../../../UI/Text/Text';
 
 export const PostRaitingUps = ({ups}) => (
-  <p className={style.ups}>{ups}</p>
+  <Text As='p' className={style.ups}>{ups}</Text>
 );
 
 PostRaitingUps.propTypes = {

@@ -1,9 +1,19 @@
 import style from './PostTime.module.css';
 import formatDate from '../../../../../utils/formatDate';
+import {Text} from '../../../../UI/Text/Text';
 import PropTypes from 'prop-types';
 
 export const PostTime = ({date}) => (
-  <time className={style.date} dateTime={date}>{formatDate(date)}</time>
+  <Text
+    As='time'
+    className={style.date}
+    dateTime={date}
+    size={10}
+    tsize={16}
+    bold
+  >
+    {formatDate(date)}
+  </Text>
 );
 
 PostTime.propTypes = {
