@@ -19,7 +19,7 @@ const LIST = [
 export const Tabs = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdown, setIsDropdown] = useState(true);
-  const [tabValue, setTabValue] = useState('Кликните для вызова меню');
+  const [tabValue, setTabValue] = useState('Главная');
 
   const handleResize = () => {
     if (document.documentElement.clientWidth < 768) {
@@ -59,7 +59,7 @@ export const Tabs = () => {
             <li className={style.item} key={id}>
               <button
                 className={style.btn}
-                onClick={((e) => setTabValue(e.target.innerText))}
+                onClick={(() => setTabValue(value))}
               >
                 {value}
                 {Icon && <Icon width={30} height={30}/>}
