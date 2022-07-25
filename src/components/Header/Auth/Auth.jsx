@@ -1,49 +1,24 @@
-import {useState, useEffect} from 'react';
+import {useState, useContext} from 'react';
 import style from './Auth.module.css';
 import PropTypes from 'prop-types';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth.js';
 import {Text} from '../../UI/Text/Text';
 import {BtnLogout} from './BtnLogout/BtnLogout';
-import {URL_API} from '../../../api/const';
+import {tokenContext} from '../../../context/tokenContext';
+import {authContext} from '../../../context/authContext';
 
-export const Auth = ({token, delToken}) => {
-  const [auth, setAuth] = useState({});
+export const Auth = () => {
+  const {delToken} = useContext(tokenContext);
   const [logout, setLogout] = useState(false);
+  const {auth, clearAuth} = useContext(authContext);
 
   const handleLogout = () => {
     // удаляется токен из Local Storage
     delToken();
     // очищаются данные аунтентификации
-    setAuth({});
+    clearAuth();
   };
-
-  useEffect(() => {
-    if (!token) return;
-
-    fetch(`${URL_API}/api/v1/me`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.status >= 200 && response.status < 300) {
-          return response;
-        }
-        if (response.status === 401) {
-          delToken();
-        }
-      })
-      .then(response => response.json())
-      .then(({name, icon_img: iconImg}) => {
-        const img = iconImg.replace(/\?.*/, '');
-        setAuth({name, img});
-      })
-      .catch(err => {
-        console.error(err);
-        setAuth({});
-      });
-  }, [token]);
 
   const handleShowBtn = () => {
     setLogout(!logout);
