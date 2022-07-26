@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {ReactComponent as DeleteIcon} from './img/delete.svg';
 
 export const BtnDelete = ({label}) => (
-  <button className={style.delete} aria-label={label}>
-    <DeleteIcon/>
+  <button className={style.delete} >
+    <DeleteIcon label={label}/>
   </button>
 );
 

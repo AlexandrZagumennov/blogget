@@ -1,16 +1,15 @@
 import {useState, useContext} from 'react';
 import style from './Auth.module.css';
-import PropTypes from 'prop-types';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth.js';
 import {Text} from '../../UI/Text/Text';
 import {BtnLogout} from './BtnLogout/BtnLogout';
-import {tokenContext} from '../../../context/tokenContext';
+import {TokenContext} from '../../../context/tokenContext';
 import {authContext} from '../../../context/authContext';
 
 export const Auth = () => {
-  const {delToken} = useContext(tokenContext);
   const [logout, setLogout] = useState(false);
+  const {delToken} = useContext(TokenContext);
   const {auth, clearAuth} = useContext(authContext);
 
   const handleLogout = () => {
@@ -45,9 +44,4 @@ export const Auth = () => {
       )}
     </div>
   );
-};
-
-Auth.propTypes = {
-  token: PropTypes.string,
-  delToken: PropTypes.func,
 };
