@@ -8,10 +8,13 @@ import {BtnDelete} from './BtnDelete/BtnDelete';
 import notphoto from '../Post/PostImg/img/notphoto.jpg';
 
 export const Post = ({postData}) => {
+  console.log(postData);
+
   const {
     title,
     author,
     ups,
+    selftext: markdown,
     created,
     thumbnail,
     thumbnail_height: thumbnailHeight,
@@ -24,7 +27,7 @@ export const Post = ({postData}) => {
         postAlt={title}
         src={(thumbnailHeight && thumbnailWidth) ? thumbnail : notphoto}
       />
-      <PostHeading postTitle={title} postAuthor={author}/>
+      <PostHeading postTitle={title} postAuthor={author} markdown={markdown}/>
       <PostRaiting ups={ups}/>
       <PostTime date={created}/>
       <BtnDelete label={'Кнопка для удаления поста'}/>
