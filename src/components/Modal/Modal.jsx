@@ -7,20 +7,33 @@ import {useRef, useEffect} from 'react';
 
 export const Modal = ({title, author, markdown, closeModal}) => {
   const overlayRef = useRef(null);
+  const closeRef = useRef(null);
 
   const handleClick = e => {
     const target = e.target;
     if (target === overlayRef.current) {
       closeModal();
     }
+
+    if (target === closeRef.current) {
+      closeModal();
+    }
+  };
+
+  const handlePressEscape = e => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
   };
 
   useEffect(() => {
     document.addEventListener('click', handleClick);
+    document.addEventListener('keydown', handlePressEscape);
     return () => {
       document.removeEventListener('click', handleClick);
+      document.removeEventListener('keydown', handlePressEscape);
     };
-  });
+  }, []);
 
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
@@ -43,8 +56,8 @@ export const Modal = ({title, author, markdown, closeModal}) => {
 
         <p className={style.author}>{author}</p>
 
-        <button className={style.close}>
-          <CloseIcon/>
+        <button className={style.close} >
+          <CloseIcon ref={closeRef}/>
         </button>
       </div>
     </div>,
