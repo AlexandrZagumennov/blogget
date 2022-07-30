@@ -4,10 +4,14 @@ import PropTypes from 'prop-types';
 import Markdown from 'markdown-to-jsx';
 import ReactDOM from 'react-dom';
 import {useRef, useEffect} from 'react';
+import {useCommentsData} from '../../hooks/useCommentsData.js';
+import {Comments} from './Comments/Comments';
+import {FormComment} from './FormComment/FormComment';
 
-export const Modal = ({title, author, markdown, closeModal}) => {
+export const Modal = ({id, closeModal}) => {
   const overlayRef = useRef(null);
   const closeRef = useRef(null);
+  const data = useCommentsData(id);
 
   const handleClick = e => {
     const target = e.target;
@@ -37,29 +41,33 @@ export const Modal = ({title, author, markdown, closeModal}) => {
 
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
-      <div className={style.modal}>
-        <h2 className={style.title}>{title}</h2>
+      {data ?
+        <div className={style.modal}>
+          <h2 className={style.title}>{data[0].title}</h2>
 
-        <div className={style.content}>
-          <Markdown options={{
-            overrides: {
-              a: {
-                props: {
-                  target: '_blank',
+          <div className={style.content}>
+            <Markdown options={{
+              overrides: {
+                a: {
+                  props: {
+                    target: '_blank',
+                  },
                 },
               },
-            },
-          }}>
-            {markdown ? markdown : 'В заметке нет текста :-('}
-          </Markdown>
-        </div>
+            }}>
+              {data[0].selftext}
+            </Markdown>
+          </div>
 
-        <p className={style.author}>{author}</p>
+          <p className={style.author}>{data[0].author}</p>
 
-        <button className={style.close} >
-          <CloseIcon ref={closeRef}/>
-        </button>
-      </div>
+          <FormComment/>
+          <Comments comments={data[1]}/>
+
+          <button className={style.close} >
+            <CloseIcon ref={closeRef}/>
+          </button>
+        </div> : <div className={style.modalPrev}>Загрузка...</div>}
     </div>,
     document.getElementById('modal-root'),
   );
@@ -68,6 +76,6 @@ export const Modal = ({title, author, markdown, closeModal}) => {
 Modal.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
-  markdown: PropTypes.string,
+  id: PropTypes.string,
   closeModal: PropTypes.func,
 };

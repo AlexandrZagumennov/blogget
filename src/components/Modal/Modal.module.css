@@ -17,6 +17,22 @@
   margin-bottom: 10px;
 }
 
+.modalPrev {
+  position: absolute;
+	top: 25%;
+  left: 50%;
+  background-color: var(--white);
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 16px;
+	display: grid;
+  place-items: center;
+	height: 200px;
+	width: 200px;
+	padding: 20px 15px;
+  margin-bottom: 10px;
+}
+
 .title {
   margin-bottom: 30px;
   padding-right: 50px;
