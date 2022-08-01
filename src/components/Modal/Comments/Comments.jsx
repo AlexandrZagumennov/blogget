@@ -8,7 +8,7 @@ import Markdown from 'markdown-to-jsx';
 export const Comments = ({comments}) => (
   <ul className={style.list}>
     {comments.length > 0 ? comments.map(comment => {
-      if (comment) {
+      if (comment.id && comment.author && comment.body && comment.created) {
         return (
           <li key={comment.id} className={style.item}>
             <Text As='h3'
@@ -18,7 +18,7 @@ export const Comments = ({comments}) => (
             >
               {comment.author}
             </Text>
-            <Text As='p'
+            <Text As='div'
               className={style.comment}
               size={14}
               tsize={18}

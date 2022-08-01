@@ -10,7 +10,6 @@ export const PostHeading = ({postTitle, postAuthor, id}) => {
   return (
     <div
       className={style.content}
-      onClick={() => setIsModalOpen(true)}
     >
       <Text
         As='h2'
@@ -22,6 +21,7 @@ export const PostHeading = ({postTitle, postAuthor, id}) => {
           size={26} tsize={32}
           className={style.linkPost}
           href='#post'
+          onClick={() => setIsModalOpen(true)}
         >
           {postTitle}
         </Text>

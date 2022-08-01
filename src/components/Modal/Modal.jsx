@@ -10,16 +10,12 @@ import {FormComment} from './FormComment/FormComment';
 
 export const Modal = ({id, closeModal}) => {
   const overlayRef = useRef(null);
-  const closeRef = useRef(null);
   const data = useCommentsData(id);
 
   const handleClick = e => {
     const target = e.target;
-    if (target === overlayRef.current) {
-      closeModal();
-    }
 
-    if (target === closeRef.current) {
+    if (target === overlayRef.current) {
       closeModal();
     }
   };
@@ -64,8 +60,8 @@ export const Modal = ({id, closeModal}) => {
           <FormComment/>
           <Comments comments={data[1]}/>
 
-          <button className={style.close} >
-            <CloseIcon ref={closeRef}/>
+          <button className={style.close} onClick={closeModal} >
+            <CloseIcon />
           </button>
         </div> : <div className={style.modalPrev}>Загрузка...</div>}
     </div>,

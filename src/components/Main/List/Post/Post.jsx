@@ -23,7 +23,7 @@ export const Post = ({postData}) => {
     <li className={style.post} key={postData.id}>
       <PostImg
         postAlt={title}
-        src={(thumbnailHeight && thumbnailWidth) ? thumbnail : notphoto}
+        src={(thumbnailHeight && thumbnailWidth && (thumbnail !== 'self')) ? thumbnail : notphoto}
       />
       <PostHeading postTitle={title} postAuthor={author} id={id}/>
       <PostRaiting ups={ups}/>
@@ -35,4 +35,5 @@ export const Post = ({postData}) => {
 
 Post.propTypes = {
   postData: PropTypes.object,
+  thumbnail: PropTypes.string,
 };
