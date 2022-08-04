@@ -1,10 +1,10 @@
-import {useEffect, useContext, useState} from 'react';
+import {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
 import {URL_API} from '../api/const';
-import {TokenContext} from '../context/tokenContext';
 
 export const usePost = () => {
   const [posts, setPosts] = useState();
-  const {token} = useContext(TokenContext);
+  const token = useSelector(state => state.token);
 
   useEffect(() => {
     if (!token) return;

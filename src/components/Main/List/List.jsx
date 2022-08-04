@@ -10,7 +10,7 @@ export const List = () => {
     <ul className={style.list}>
       {posts ? posts.map((post) => (
         <Post key={post.data.id} postData={post.data} />
-      )) : 'LOADING ...'}
+      )) : null}
     </ul>
   );
 };

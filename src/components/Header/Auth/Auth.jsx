@@ -4,23 +4,24 @@ import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth.js';
 import {Text} from '../../UI/Text/Text';
 import {BtnLogout} from './BtnLogout/BtnLogout';
-import {TokenContext} from '../../../context/tokenContext';
 import {authContext} from '../../../context/authContext';
+import {useDispatch} from 'react-redux';
+import {deleteToken} from '../../../store';
 
 export const Auth = () => {
   const [logout, setLogout] = useState(false);
-  const {delToken} = useContext(TokenContext);
   const {auth, clearAuth} = useContext(authContext);
 
-  const handleLogout = () => {
-    // удаляется токен из Local Storage
-    delToken();
-    // очищаются данные аунтентификации
-    clearAuth();
-  };
+  const dispatch = useDispatch();
 
   const handleShowBtn = () => {
     setLogout(!logout);
+  };
+
+  const handleLogout = () => {
+    dispatch(deleteToken());
+    clearAuth();
+    handleShowBtn();
   };
 
   return (
@@ -35,7 +36,7 @@ export const Auth = () => {
               alt={`Аватар ${auth.name}`}
             />
           </button>
-          {logout && <BtnLogout handleLogout={handleLogout}/>}
+          {logout && <BtnLogout handleLogout={() => handleLogout()}/>}
         </div>
       ) : (
         <Text className={style.authLink} As='a' href={urlAuth}>
