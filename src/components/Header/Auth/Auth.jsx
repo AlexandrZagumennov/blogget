@@ -6,7 +6,7 @@ import {Text} from '../../UI/Text/Text';
 import {BtnLogout} from './BtnLogout/BtnLogout';
 import {authContext} from '../../../context/authContext';
 import {useDispatch} from 'react-redux';
-import {deleteToken} from '../../../store';
+import {deleteToken} from '../../../store/tokenReducer';
 
 export const Auth = () => {
   const [logout, setLogout] = useState(false);
