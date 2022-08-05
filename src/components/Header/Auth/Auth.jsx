@@ -1,16 +1,17 @@
-import {useState, useContext} from 'react';
+import {useState} from 'react';
 import style from './Auth.module.css';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth.js';
 import {Text} from '../../UI/Text/Text';
 import {BtnLogout} from './BtnLogout/BtnLogout';
-import {authContext} from '../../../context/authContext';
 import {useDispatch} from 'react-redux';
 import {deleteToken} from '../../../store/tokenReducer';
+import {useAuth} from '../../../hooks/useAuth';
+import Preloader from '../../UI/Preloader';
 
 export const Auth = () => {
   const [logout, setLogout] = useState(false);
-  const {auth, clearAuth} = useContext(authContext);
+  const [auth, loading, clearAuth] = useAuth();
 
   const dispatch = useDispatch();
 
@@ -26,7 +27,9 @@ export const Auth = () => {
 
   return (
     <div className={style.container}>
-      {auth.name ? (
+      {loading ? (
+        <Preloader/>
+      ) : auth.name ? (
         <div>
           <button className={style.btn} onClick={() => handleShowBtn()}>
             <img
