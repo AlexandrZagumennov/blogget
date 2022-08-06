@@ -1,4 +1,4 @@
-import {AUTH_LOGOUT, AUTH_REQUEST, AUTH_REQUEST_ERROR, AUTH_REQUEST_SUCCESS} from './action';
+import {AUTH_LOGOUT, AUTH_REQUEST, AUTH_REQUEST_ERROR, AUTH_REQUEST_SUCCESS} from './authAction';
 
 const initialState = {
   loading: false,

@@ -7,10 +7,11 @@ import {useRef, useEffect} from 'react';
 import {useCommentsData} from '../../hooks/useCommentsData.js';
 import {Comments} from './Comments/Comments';
 import {FormComment} from './FormComment/FormComment';
+import Preloader from '../UI/Preloader';
 
 export const Modal = ({id, closeModal}) => {
   const overlayRef = useRef(null);
-  const data = useCommentsData(id);
+  const [data, status, error] = useCommentsData(id);
 
   const handleClick = e => {
     const target = e.target;
@@ -37,33 +38,42 @@ export const Modal = ({id, closeModal}) => {
 
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
-      {data ?
-        <div className={style.modal}>
-          <h2 className={style.title}>{data[0].title}</h2>
+      <div className={style.modal}>
+        {status === 'loading' && (
+          <div className={style.statusContainer}>
+            <h3 className={style.statusTitle}>Загрузка...</h3>
+            <Preloader size={250}/>
+          </div>
+        )}
+        {status === 'error' && `Ошибка ${error}`}
+        {status === 'loaded' && (
+          <>
+            <h2 className={style.title}>{data[0].title}</h2>
 
-          <div className={style.content}>
-            <Markdown options={{
-              overrides: {
-                a: {
-                  props: {
-                    target: '_blank',
+            <div className={style.content}>
+              <Markdown options={{
+                overrides: {
+                  a: {
+                    props: {
+                      target: '_blank',
+                    },
                   },
                 },
-              },
-            }}>
-              {data[0].selftext}
-            </Markdown>
-          </div>
+              }}>
+                {data[0].selftext}
+              </Markdown>
+            </div>
+            <p className={style.author}>{data[0].author}</p>
 
-          <p className={style.author}>{data[0].author}</p>
+            <FormComment/>
+            <Comments comments={data[1]}/>
 
-          <FormComment/>
-          <Comments comments={data[1]}/>
-
-          <button className={style.close} onClick={closeModal} >
-            <CloseIcon />
-          </button>
-        </div> : <div className={style.modalPrev}>Загрузка...</div>}
+            <button className={style.close} onClick={closeModal} >
+              <CloseIcon />
+            </button>
+          </>
+        )}
+      </div>
     </div>,
     document.getElementById('modal-root'),
   );

@@ -5,7 +5,7 @@ import {urlAuth} from '../../../api/auth.js';
 import {Text} from '../../UI/Text/Text';
 import {BtnLogout} from './BtnLogout/BtnLogout';
 import {useDispatch} from 'react-redux';
-import {deleteToken} from '../../../store/tokenReducer';
+import {deleteToken} from '../../../store/token/tokenReducer';
 import {useAuth} from '../../../hooks/useAuth';
 import Preloader from '../../UI/Preloader';
 
@@ -28,7 +28,7 @@ export const Auth = () => {
   return (
     <div className={style.container}>
       {loading ? (
-        <Preloader/>
+        <Preloader size={30}/>
       ) : auth.name ? (
         <div>
           <button className={style.btn} onClick={() => handleShowBtn()}>

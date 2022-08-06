@@ -22,6 +22,16 @@
   padding-right: 50px;
 }
 
+.statusContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.statusTitle {
+	margin-bottom: 100px;
+}
+
 .author {
   margin-bottom: 20px;
 }

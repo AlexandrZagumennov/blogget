@@ -6,4 +6,3 @@ export const Logo = () => (
     <img className={style.logo} src={logo} alt="Логотип Blogget"/>
   </a>
 );
-

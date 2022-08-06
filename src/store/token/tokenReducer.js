@@ -1,4 +1,4 @@
-import {setToken} from '../api/token';
+import {setToken} from '../../api/token';
 
 const initianalState = {
   token: '',
