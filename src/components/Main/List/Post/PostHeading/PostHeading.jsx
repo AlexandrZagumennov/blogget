@@ -1,30 +1,23 @@
-import {useState} from 'react';
 import style from './PostHeading.module.css';
 import PropTypes from 'prop-types';
 import {Text} from '../../../../UI/Text/Text';
-import {Modal} from '../../../../Modal/Modal';
+import {Link, useParams} from 'react-router-dom';
 
 export const PostHeading = ({postTitle, postAuthor, id}) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {page} = useParams();
 
   return (
-    <div
-      className={style.content}
-    >
+    <div className={style.content}>
       <Text
         As='h2'
         size={20} tsize={22}
         className={style.title}
       >
-        <Text
-          As='a'
-          size={26} tsize={32}
-          className={style.linkPost}
-          href='#post'
-          onClick={() => setIsModalOpen(true)}
-        >
-          {postTitle}
-        </Text>
+        <Link className={style.linkPost} to={`/category/${page}/post/${id}`}>
+          <Text className={style.linkPost} size={14} tsize={22} >
+            {postTitle}
+          </Text>
+        </Link>
       </Text>
 
       <Text
@@ -34,11 +27,6 @@ export const PostHeading = ({postTitle, postAuthor, id}) => {
       >
         {postAuthor}
       </Text>
-      {isModalOpen && (
-        <Modal
-          id={id}
-          closeModal={() => setIsModalOpen(false)}
-        />)}
     </div>
   );
 };

@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 import Markdown from 'markdown-to-jsx';
 import ReactDOM from 'react-dom';
 import {useRef, useEffect} from 'react';
-import {useCommentsData} from '../../hooks/useCommentsData.js';
+import {useCommentsData} from '../../hooks/useCommentsData';
 import {Comments} from './Comments/Comments';
 import {FormComment} from './FormComment/FormComment';
 import Preloader from '../UI/Preloader';
+import {useNavigate, useParams} from 'react-router-dom';
 
-export const Modal = ({id, closeModal}) => {
+export const Modal = () => {
+  const {id, page} = useParams();
+  const navigate = useNavigate();
   const overlayRef = useRef(null);
   const [data, status, error] = useCommentsData(id);
 
@@ -17,13 +20,13 @@ export const Modal = ({id, closeModal}) => {
     const target = e.target;
 
     if (target === overlayRef.current) {
-      closeModal();
+      navigate(`/category/${page}`);
     }
   };
 
   const handlePressEscape = e => {
     if (e.key === 'Escape') {
-      closeModal();
+      navigate(`/category/${page}`);
     }
   };
 
@@ -45,7 +48,9 @@ export const Modal = ({id, closeModal}) => {
             <Preloader size={250}/>
           </div>
         )}
-        {status === 'error' && `Ошибка ${error}`}
+        {status === 'error' && error.response.status === 404 &&
+          navigate('*')
+        }
         {status === 'loaded' && (
           <>
             <h2 className={style.title}>{data[0].title}</h2>
@@ -68,7 +73,9 @@ export const Modal = ({id, closeModal}) => {
             <FormComment/>
             <Comments comments={data[1]}/>
 
-            <button className={style.close} onClick={closeModal} >
+            <button className={style.close} onClick={() => {
+              navigate(`/category/${page}`);
+            }}>
               <CloseIcon />
             </button>
           </>
