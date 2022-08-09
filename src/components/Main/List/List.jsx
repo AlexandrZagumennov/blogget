@@ -8,6 +8,8 @@ import {Outlet, useParams} from 'react-router-dom';
 
 export const List = () => {
   const posts = useSelector(state => state.posts.posts);
+  const uniqPosts = posts.filter((element, index, array) => array.findIndex(post => (post.data.id === element.data.id)) === index);
+
   const endList = useRef(null);
   const dispatch = useDispatch();
   const {page} = useParams();
@@ -37,7 +39,7 @@ export const List = () => {
   return (
     <>
       <ul className={style.list}>
-        {posts ? posts.map((post) => (
+        {uniqPosts ? uniqPosts.map((post) => (
           <Post key={post.data.id} postData={post.data} />
         )) : <Preloader size={200}/>}
         <li className={style.end} ref={endList}/>

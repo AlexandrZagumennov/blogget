@@ -15,15 +15,16 @@ export const Post = ({postData}) => {
     id,
     created,
     thumbnail,
-    thumbnail_height: thumbnailHeight,
-    thumbnail_width: thumbnailWidth,
+    // thumbnail_height: thumbnailHeight,
+    // thumbnail_width: thumbnailWidth,
   } = postData;
 
   return (
     <li className={style.post} key={postData.id}>
       <PostImg
         postAlt={title}
-        src={(thumbnailHeight && thumbnailWidth && (thumbnail !== 'self')) ? thumbnail : notphoto}
+        // src={(thumbnailHeight && thumbnailWidth && (thumbnail !== 'self')) ? thumbnail : notphoto}
+        src={(thumbnail.length > 4) ? thumbnail : notphoto}
       />
       <PostHeading postTitle={title} postAuthor={author} id={id}/>
       <PostRaiting ups={ups}/>
