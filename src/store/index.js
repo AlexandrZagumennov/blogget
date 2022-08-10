@@ -1,7 +1,7 @@
 import {tokenReducer, tokenMiddleware} from './token/tokenReducer';
 import {commentReducer} from './comment/commentReducer';
 import {authReducer} from './auth/authReducer';
-import {postReducer} from './post/postReducer';
+import postReducer from './post/postSlice';
 import commentsReducer from './comments/commentsSlice';
 import {configureStore} from '@reduxjs/toolkit';
 

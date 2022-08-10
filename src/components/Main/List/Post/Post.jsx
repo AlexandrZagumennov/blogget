@@ -24,7 +24,8 @@ export const Post = ({postData}) => {
       <PostImg
         postAlt={title}
         // src={(thumbnailHeight && thumbnailWidth && (thumbnail !== 'self')) ? thumbnail : notphoto}
-        src={(thumbnail.length > 4) ? thumbnail : notphoto}
+        // src={(thumbnail.length > 4) ? thumbnail : notphoto}
+        src={thumbnail.match(/http[^ ]+/g) !== null ? thumbnail : notphoto}
       />
       <PostHeading postTitle={title} postAuthor={author} id={id}/>
       <PostRaiting ups={ups}/>
