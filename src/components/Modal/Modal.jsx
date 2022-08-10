@@ -14,7 +14,7 @@ export const Modal = () => {
   const {id, page} = useParams();
   const navigate = useNavigate();
   const overlayRef = useRef(null);
-  const [data, status, error] = useCommentsData(id);
+  const [post, comments, status, error] = useCommentsData(id);
 
   const handleClick = e => {
     const target = e.target;
@@ -51,9 +51,9 @@ export const Modal = () => {
         {status === 'error' && error.response.status === 404 &&
           navigate('*')
         }
-        {status === 'loaded' && (
+        {status === 'loaded' && post && (
           <>
-            <h2 className={style.title}>{data[0].title}</h2>
+            <h2 className={style.title}>{post.title}</h2>
 
             <div className={style.content}>
               <Markdown options={{
@@ -65,13 +65,13 @@ export const Modal = () => {
                   },
                 },
               }}>
-                {data[0].selftext}
+                {post.selftext}
               </Markdown>
             </div>
-            <p className={style.author}>{data[0].author}</p>
+            <p className={style.author}>{post.author}</p>
 
             <FormComment/>
-            <Comments comments={data[1]}/>
+            <Comments comments={comments}/>
 
             <button className={style.close} onClick={() => {
               navigate(`/category/${page}`);
