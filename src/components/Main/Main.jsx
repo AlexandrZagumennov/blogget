@@ -18,7 +18,6 @@ export const Main = () => (
         <Route path='/category/:page' element={<List/>}>
           <Route path='post/:id' element={<Modal/>} />
         </Route>
-        {/* <Route path='auth' element={<Navigate to='/'/>} /> */}
         <Route path='*' element={<Error/>}/>
       </Routes>
     </Layout>
