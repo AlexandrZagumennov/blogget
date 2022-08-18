@@ -2,10 +2,11 @@ import style from './Main.module.css';
 import Layout from '../Layout';
 import Tabs from './Tabs';
 import List from './List';
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Modal from '../Modal';
 import Home from './Home';
 import Error from './Error';
+import Start from './Start';
 
 export const Main = () => (
   <main className={style.main}>
@@ -16,7 +17,8 @@ export const Main = () => (
         <Route path='/category/:page' element={<List/>}>
           <Route path='post/:id' element={<Modal/>} />
         </Route>
-        <Route path='auth' element={<Navigate to='/'/>} />
+        {/* <Route path='auth' element={<Navigate to='/'/>} /> */}
+        <Route path='auth' element={<Start/>} />
         <Route path='*' element={<Error/>}/>
       </Routes>
     </Layout>
