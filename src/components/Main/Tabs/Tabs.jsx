@@ -9,6 +9,7 @@ import {ReactComponent as BestIcon} from './img/best.svg';
 import {ReactComponent as HotIcon} from './img/hot.svg';
 import {debounceRaf} from '../../../utils/debounceRaf.js';
 import {useNavigate} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 const LIST = [
   {value: 'Главная', Icon: HomeIcon, link: 'rising'},
@@ -22,6 +23,7 @@ export const Tabs = () => {
   const [isDropdown, setIsDropdown] = useState(true);
   const [tabValue, setTabValue] = useState('Главная');
   const navigate = useNavigate();
+  const token = useSelector(state => state.token.token);
 
   const handleResize = () => {
     if (document.documentElement.clientWidth < 768) {
@@ -61,10 +63,12 @@ export const Tabs = () => {
             <li className={style.item} key={id}>
               <button
                 className={style.btn}
-                onClick={(() => {
-                  setTabValue(value);
-                  navigate(`/category/${link}`);
-                })}
+                onClick={!token ? (() => alert('Авторизуйтесь')) : (
+                  () => {
+                    setTabValue(value);
+                    navigate(`/category/${link}`);
+                  }
+                )}
               >
                 {value}
                 {Icon && <Icon width={30} height={30}/>}
